@@ -1,0 +1,7 @@
+.btn__calculator {
+   display: grid;
+   grid-template-columns: repeat(6, 1fr);
+   grid-template-rows: repeat(3, auto);
+   grid-gap: 20px;
+}
+

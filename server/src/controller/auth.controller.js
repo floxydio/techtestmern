@@ -27,7 +27,6 @@ async function signUpAccount(req, res) {
 
 async function signInAccount(req, res) {
   const { username, password } = req.body;
-
   connect.init().then((db) => {
     const collection = db.collection("users");
     collection.findOne({ username: username }).then((data) => {
@@ -38,6 +37,7 @@ async function signInAccount(req, res) {
           { $set: { timestamp: new Date() } }
         );
         res.status(201).send({
+          status: 201,
           data: {
             _id: data._id,
             name: data.name,
@@ -47,6 +47,7 @@ async function signInAccount(req, res) {
         });
       } else {
         res.status(400).send({
+          status: 400,
           message: "Username or Password is Incorrect",
         });
       }
