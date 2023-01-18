@@ -14,7 +14,14 @@
    margin-top: 20px;
 
 }
-
+.row__title {
+   margin-top: 30px;
+   display: flex;
+   flex-direction: row;
+   justify-content: end;
+   padding-left: 20px;
+   padding-right: 20px;
+}
 
 .btn__result_home {
    font-size: 20px;

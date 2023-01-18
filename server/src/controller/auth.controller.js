@@ -14,8 +14,9 @@ async function signUpAccount(req, res) {
         name: name,
         username: username,
         password: hash,
-        timestamp: "",
+        login_at: "",
         registeredAt: new Date(),
+        logout_at: "",
       })
       .then(() => {
         res.status(201).send({
@@ -34,7 +35,7 @@ async function signInAccount(req, res) {
       if (checkBcrypt) {
         collection.updateOne(
           { _id: data._id },
-          { $set: { timestamp: new Date() } }
+          { $set: { login_at: new Date() } }
         );
         res.status(201).send({
           status: 201,
@@ -55,4 +56,27 @@ async function signInAccount(req, res) {
   });
 }
 
-module.exports = { signUpAccount, signInAccount };
+async function logoutAccount(req, res) {
+  connect.init().then((db) => {
+    const collection = db.collection("users");
+    collection.findOne({ username: req.body.username }).then((data) => {
+      console.log(data);
+      collection
+        .updateOne(
+          { _id: data._id },
+          {
+            $set: {
+              logout_at: new Date(),
+            },
+          }
+        )
+        .then((data) => {
+          return res.status(200).send({
+            message: "Successfully Logout",
+          });
+        });
+    });
+  });
+}
+
+module.exports = { signUpAccount, signInAccount, logoutAccount };

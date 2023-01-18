@@ -4,9 +4,10 @@ import "./home.css";
 import numberToText from "number-to-text";
 import "number-to-text/converters/en-us";
 import "number-to-text/converters/id";
+import Header from "../../Components/Header";
 
 export default function Home() {
-  const btnList = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const btnList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
   const operator = ["+", "-", "/", "*"];
   const [resultNum, setResultNum] = useState([]);
   const [resultOperator, setResultOperator] = useState(0);
@@ -64,16 +65,12 @@ export default function Home() {
       );
     }
   }
+
+
   return (
     <>
-      <button
-        onClick={() => {
-          localStorage.clear();
-          window.location.replace("/sign-in");
-        }}
-      >
-        Logout
-      </button>
+      <Header />
+
       <div className="home__calculator">
         <div className="header__home">
           <h2>Calculator Test</h2>

@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Button, Input, Container, Grid } from "semantic-ui-react";
-export default function SignInPage() {
+
+export default function Signup() {
+  const [name, setName] = useState("");
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
   async function handleSubmit() {
-    await fetch("http://192.168.43.110:9000/api/login", {
+    await fetch("http://192.168.43.110:9000/api/register", {
       method: "POST",
       body: JSON.stringify({
+        name: name,
         username: username,
         password: password,
       }),
@@ -17,15 +20,11 @@ export default function SignInPage() {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.status === 201) {
-          localStorage.setItem("id_login", data.data._id);
-          window.location.replace("/");
-        } else {
-          alert("Username or password Incorrect");
-        }
+        console.log(data);
+
+        window.location.replace("/sign-in");
       });
   }
-
   return (
     <>
       <Grid
@@ -33,7 +32,7 @@ export default function SignInPage() {
           height: "100vh",
         }}
         padded
-        textAlign="center" 
+        textAlign="center"
         verticalAlign="middle"
       >
         <Grid.Column>
@@ -42,7 +41,20 @@ export default function SignInPage() {
               marginBottom: 40,
             }}
           >
-            <h2>Sign In Account</h2>
+            <h2>Register Your Account</h2>
+          </Container>
+          <Container
+            style={{
+              marginBottom: 10,
+            }}
+          >
+            <Input
+              style={{
+                width: "50%",
+              }}
+              placeholder="Input Your Name..."
+              onChange={(e) => setName(e.target.value)}
+            />
           </Container>
           <Container
             style={{
@@ -68,15 +80,19 @@ export default function SignInPage() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </Container>
-          <Button
+          <button
             onClick={handleSubmit}
             style={{
-              width: "42%",
+              width: "30%",
+              height: 40,
+              backgroundColor: "red",
+              color: "whitesmoke",
+              fontSize: 20,
             }}
             color="red"
           >
-            Sign In
-          </Button>
+            Sign Up
+          </button>
         </Grid.Column>
       </Grid>
     </>

@@ -1,6 +1,7 @@
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const authController = require("../controller/auth.controller");
+const usertimeController = require("../controller/usertime.controller");
 const express = require("express");
 function SetupRoutes(app) {
   // Middleware
@@ -14,6 +15,8 @@ function SetupRoutes(app) {
 
   app.post("/api/register", authController.signUpAccount);
   app.post("/api/login", authController.signInAccount);
+  app.post("/api/logout", authController.logoutAccount);
+  app.get("/api/timestamp-user", usertimeController.getTimeStamp);
 }
 
 module.exports = { SetupRoutes };
